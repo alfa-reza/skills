@@ -38,4 +38,17 @@ Follow user instructions and repository rules. Use Conventional Commits in Engli
 - Respect hooks, signing, and repository safeguards. Never bypass them, alter identity, delete locks, or rewrite history without explicit authorization.
 - If hooks or concurrent work change prepared content before commit, re-review it; if detected after commit, report the mismatch. Stop if ownership or scope becomes uncertain.
 - Verify the resulting commit, message, and tree against reviewed evidence. On failure or interruption, check whether the commit already exists before retrying. Never silently amend or reset to recover.
-- Report commit hashes and subjects, relevant failures, and intentionally excluded changes. Push only when authorized; verify the destination. Never infer permission to rebase, squash, or force-push.
+- Push only when authorized; verify the destination. Never infer permission to rebase, squash, or force-push.
+
+## 5. Output
+
+- Verify internally; do not narrate routine Git operations or reproduce raw command output unless requested or needed to explain a failure.
+- Report created commits in creation order using a short, human-readable summary in the user's language. Include the short hash, exact subject, and one concise description of the actual changes. Mention key files, behavior, or verified diff statistics only when useful; do not repeat the subject or enumerate every file.
+- Add dates, authors, full hashes, or other routine metadata only when explicitly requested. Report material failures, unverified checks, unexpected results, intentionally excluded changes, and actions such as push or history rewrite separately, only when applicable. Omit redundant success summaries.
+
+Example format (replace placeholders with verified details; localize labels):
+
+1. **<short topic>**
+   - Hash: `<short hash>`
+   - Message: `<exact commit subject>`
+   - Changes: <concise summary of actual changes>
