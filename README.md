@@ -34,7 +34,7 @@ npx skills add alfa-reza/skills --skill commit -a claude-code
 | [`code-review`](skills/code-review/SKILL.md) | Review software changes for defects, regressions, security risks, specification compliance, compatibility, and maintainability. |
 | [`commit`](skills/commit/SKILL.md) | Create safe, atomic Git commits following Conventional Commits with staged-diff review. |
 | [`debug`](skills/debug/SKILL.md) | Diagnose and resolve software failures through evidence-driven debugging across languages and platforms. |
-| [`optimize`](skills/optimize/SKILL.md) | Profile, benchmark, and optimize software performance, latency, throughput, and resource utilization with measurable evidence. |
+| [`performance-optimization`](skills/performance-optimization/SKILL.md) | Profile, benchmark, and optimize software performance across algorithms, runtimes, queries, memory, and web metrics. |
 | [`pr`](skills/pull-request/SKILL.md) | Draft and publish pull requests aligned with repository templates, reviewer-first descriptions, and merge risk checks. |
 | [`refactor`](skills/refactor/SKILL.md) | Improve existing code structure without changing observable behavior, applying KISS, YAGNI, and DRY with risk-based verification. |
 | [`rtfm`](skills/rtfm/SKILL.md) | Retrieve and verify official technical documentation before making claims or changes that depend on external APIs, libraries, SDKs, or CLIs. |
