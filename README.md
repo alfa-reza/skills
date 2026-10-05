@@ -40,7 +40,7 @@ npx skills add alfa-reza/skills --skill commit -a claude-code
 | [`rtfm`](skills/rtfm/SKILL.md) | Retrieve and verify official technical documentation before making claims or changes that depend on external APIs, libraries, SDKs, or CLIs. |
 | [`simplicity`](skills/simplicity/SKILL.md) | Keep code changes minimal and complete (KISS, YAGNI, DRY) before designing, writing, fixing, or reviewing code. |
 | [`unslop`](skills/unslop/SKILL.md) | Remove AI writing patterns from prose while preserving meaning, tone, and technical accuracy. |
-| [`writing-for-llm`](skills/writing-for-llm/SKILL.md) | Write, review, and optimize instructions for language models, prompts, AGENTS.md, SKILL.md, and subagent delegation. |
+| [`writing-for-llm`](skills/writing-for-llm/SKILL.md) | Guide language models in writing high-signal prompts, system instructions, and PRDs designed for downstream LLM execution. |
 
 ## License
 
