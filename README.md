@@ -17,7 +17,7 @@ Install a specific skill, install globally, or target a specific agent:
 
 ```bash
 # Install a single skill
-npx skills add alfa-reza/skills --skill code-audit
+npx skills add alfa-reza/skills --skill codebase-audit
 
 # Install globally across projects
 npx skills add alfa-reza/skills -g
@@ -30,7 +30,7 @@ npx skills add alfa-reza/skills --skill commit -a claude-code
 
 | Skill | Description |
 | --- | --- |
-| [`code-audit`](skills/code-audit/SKILL.md) | Perform evidence-based audits for defects, security, reliability, performance, compatibility, test gaps, architecture, and unnecessary complexity. |
+| [`codebase-audit`](skills/codebase-audit/SKILL.md) | Audit codebases across three execution tiers (quick, standard, deep) for defects, security, reliability, scalability, test gaps, and lean bloat. |
 | [`code-review`](skills/code-review/SKILL.md) | Review software changes for defects, regressions, security risks, specification compliance, compatibility, and maintainability. |
 | [`commit`](skills/commit/SKILL.md) | Create safe, atomic Git commits following Conventional Commits with staged-diff review. |
 | [`debug`](skills/debug/SKILL.md) | Diagnose and resolve software failures through evidence-driven debugging across languages and platforms. |
