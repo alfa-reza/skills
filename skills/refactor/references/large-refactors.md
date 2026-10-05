@@ -2,20 +2,13 @@
 
 Use for changes across meaningful module, platform, persistence, or public contract boundaries. The size of a repository alone does not justify architectural change.
 
-## Choose the workflow
-
-Adapt Fowler's workflows to the actual request; these are not configuration modes or mandatory ceremonies.
-
-| Workflow | Use |
-|---|---|
-| TDD | Improve structure after the new behavior passes its tests. |
-| Comprehension | Make a difficult-to-understand section clearer within the current scope. |
-| Litter-pickup | Make a small related cleanup while working nearby; defer broader work. |
-| Preparatory | Restructure to make an authorized upcoming change simpler, without implementing it during the refactoring step. |
-| Planned | Address an explicitly scoped structural problem with measurable or concrete maintenance benefit. |
-| Long-term | Move toward an agreed architecture through independently verified, behavior-preserving increments. |
+## Operational boundaries
 
 Separate functional changes from structural ones. Do not invent future features or use a refactoring request as permission for an unrelated migration.
+
+- **Opportunistic cleanup:** Confine incidental cleanup strictly to code touched by the active task; defer broader refactoring.
+- **Preparatory refactoring:** Restructure to make an upcoming authorized change simpler, without implementing new functionality during the refactoring step.
+- **Architectural increments:** Deliver cross-boundary changes in small, independently verifiable, behavior-preserving increments. Never execute a multi-module rewrite in a single unverified step.
 
 ## Map the boundary and risk
 
