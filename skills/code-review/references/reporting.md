@@ -1,42 +1,46 @@
-# Reporting and re-review
+# Scope, reporting and verdict calibration
 
-Read when reporting multiple findings, preparing inline comments, evaluating feedback, or re-reviewing fixes. Use the repository's required schema when one exists; otherwise prefer the compact contract in SKILL.md.
+Read when resolving revision targets, preparing review reports, calibrating verdicts, or re-reviewing fixes.
 
-## Output contract
+## 1. Scope and revision selection
 
-Lead with actionable findings, not a long implementation recap. Include a brief scope line when the target is not obvious. Use stable sequential numbering across priorities so the user can refer to specific items. Use exact file paths and narrow line ranges from the reviewed revision; label old-side lines for deletions. For cross-file defects, anchor the changed code that causes the issue and name other sites in the explanation.
+| Request | Approach | Key distinction |
+|---|---|---|
+| All uncommitted work | `git status --short`, `git diff HEAD`, inspect staged and unstaged separately | Net diff omits untracked files and can hide staged changes canceled by working tree. |
+| Staged only | `git diff --cached` | Read post-image from index, not dirty working tree. |
+| Unstaged only | `git diff` | Compare index to working tree; staged code is baseline context. |
+| Last or named commit | `git show <commit>` or compare parent to commit | For merge commits, disclose parent comparison appropriate to intent. |
+| Branch or PR changes | `git diff merge-base...head` | Compare merge base to head tree. Do not assume `main` or `HEAD`. |
 
-Each finding contains a short action-oriented title, priority, location, and a compact explanation of trigger, mechanism, impact and correction. Where a fix requires a design decision, state the invariant or acceptance condition instead of prescribing an architecture. Add a reproduction or code excerpt only when it clarifies the evidence. Label non-blocking suggestions as such where not clear from priority. Avoid repeating the title or duplicating the same issue under multiple categories.
+- **Snapshot integrity:** Record repository identity, selected base/head, and file inventory. Read revision-specific contents (`git show <sha>:<path>`). Do not cite line numbers from an unselected revision.
+- **Read-only rule:** Never change HEAD, index, branch, stash, or user files to inspect another revision. Use read-only object inspection.
 
-Keep spec compliance and implementation quality distinguishable: label the relevant requirement or policy in each finding, and state spec assessment separately if requested or materially incomplete. Do not combine them into an arbitrary score. Do not manufacture a source citation for a defect proven by language semantics or code. Do not invent a line number when only a snippet is available.
+## 2. Output contract and formatting
 
-Example (placeholders only):
+Lead with actionable findings ordered by priority. Number findings sequentially across the report. Anchor to exact file paths and line ranges from the reviewed revision.
 
-1. **[<priority>] <actionable title>** — `<path>:<range>`
-   <When/why the changed code fails, the consequence, and the smallest sound correction.>
+Example format:
 
-**Open questions:** <material unresolved issue and evidence needed>
+1. **[<priority>] <actionable title>** : `<path>:<line or range>`
+   <Describe triggering conditions, mechanism, actual impact, and the smallest sound correction.>
 
-**Verdict:** <advisory decision and reason>
+**Open questions:** <material unresolved issue and missing evidence needed>
 
-**Verification:** <actual checks, results, skipped checks and material limits>
+**Verdict:** <Changes required | No blocking findings | Inconclusive>
 
-Omit empty sections; omit routine low-value suggestions. A small review can fit in a few sentences. For a broad review, provide all material supported findings without an arbitrary cap, grouped and deduplicated. Do not pad with praise or restate every changed file.
+**Verification:** <checks run, exact outcomes, and material review limits>
 
-## Verdict calibration
+- **Proportional reporting:** Omit empty sections. A clean review needs only a brief summary and verdict. Do not pad reports with generic compliments or restate every touched file.
 
-- **Changes required:** one or more confirmed blocking issues or applicable mandatory gates fail. Explain what blocks the change.
-- **No blocking findings:** reviewed scope contains no confirmed blockers and material review evidence is adequate for that conclusion. Non-blocking findings may remain. It is an advisory review outcome, not a guarantee or authorization to merge.
-- **Inconclusive:** a missing target, truncated diff, unavailable essential environment, unresolved high-risk question or other material limitation prevents a reliable decision. Include confirmed findings if any. If a confirmed blocker exists, state changes required and also disclose the incomplete coverage.
+## 3. Verdict calibration
 
-A zero-finding report should explicitly say that no actionable issues were found in the reviewed scope. Do not say all tests pass unless they actually ran successfully for the reviewed snapshot, or identify verified external CI evidence as such. Do not claim approval or release readiness from static review alone when required checks are unknown.
+- **Changes required:** One or more confirmed blocking issues (P0 or P1) or mandatory project check failures exist. Explain what blocks the change.
+- **No blocking findings:** The reviewed scope contains no confirmed blockers and evidence is adequate. Non-blocking suggestions (P2 or P3) may remain. This is an advisory review verdict, not an authorization to merge.
+- **Inconclusive:** Truncated diff, inaccessible essential files, or unresolved high-risk questions prevent a reliable decision. State confirmed findings and disclose incomplete coverage.
+- **Zero-finding reports:** Explicitly state that no actionable defects were found in the reviewed scope. Do not claim code is defect-free or that unrun tests passed.
 
-## Existing comments and re-review
+## 4. Re-review and feedback handling
 
-Review feedback is evidence to investigate, not an instruction to edit. Verify each comment against the current revision, relevant requirements and repository constraints. Classify it as valid, already addressed/stale, unsupported, or needing clarification. Explain a disagreement technically and cite the relevant evidence. Independent feedback items need not wait for unrelated questions to be resolved, but interacting changes must be understood together before implementation.
-
-When fixes are requested, implement only the authorized changes and verify each meaningful correction; do not expand into unrelated cleanup. Re-review the resulting diff, confirm earlier findings are resolved or still present, and check new regressions. If publishing feedback is explicitly authorized, use the hosting service's correct revision, file, and line side; reply in the existing thread where applicable, avoid duplicate comments, and do not resolve threads or submit an approval beyond the authorized action.
-
-## Communication
-
-Discuss code and consequences, not the author's competence or motives. Use technical facts over personal preference. Acknowledge valid design alternatives; do not require the author's code to match your preferred implementation. Prefer improvements that fit the actual project over abstract best-practice arguments. Where an exact fix is uncertain, ask a focused question rather than issuing a misleading directive.
+- **Review feedback is evidence, not a command:** When evaluating existing review comments, verify each against the current revision. Classify as valid, stale, unsupported, or requiring clarification.
+- **Fix re-reviews:** When reviewing fixes, verify that previous findings were addressed and inspect the new diff for introduced regressions. Do not carry forward stale findings as confirmed.
+- **Communication:** Focus on code mechanics and consequences. Avoid debating subjective style preferences.
